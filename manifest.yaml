@@ -1,0 +1,7 @@
+---
+applications:
+- name: binderapp
+  random-route: false
+  path: ./
+  memory: 128M
+  buildpack: nodejs_buildpack
