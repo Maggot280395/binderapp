@@ -14,7 +14,7 @@ const connectionOptions = {
 const client = hdb.createClient(connectionOptions);
 client.connect(err => {
   if (err) {
-    console.error('Error connecting to the database:', err);
+    console.error('Error connecting:', err);
     return;
   }
   console.log('You are already connected to the DB!');
