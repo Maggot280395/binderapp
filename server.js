@@ -30,7 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.raw());
 
 app.get('/test', function (req, res) {
-  client.exec('SELECT * FROM DEVS', (err, result) => {
+  client.exec('SELECT * FROM DB_1.DEVS', (err, result) => {
     if (err) {
       console.error('Error executing the query:', err);
       res.status(500).json({ error: 'Internal Server Error' });
