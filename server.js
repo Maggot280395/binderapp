@@ -49,10 +49,11 @@ app.post('/registerUser', function (req, res) {
     res.send('User Registered');
   });
 
-app.post('/loginUser', function (req, res) {
-    var body=req.body;
+app.get('/loginUser', function (req, res) {
+    var user=req.params.usr;
+    var password=req.params.pwd;
     console.log(body);
-    if(body.user.id=="I583727" && body.user.password=="hola"){
+    if(user=="I583727" && password=="hola"){
       res.send('Correct');
     }else{
       res.send('Incorrect');
