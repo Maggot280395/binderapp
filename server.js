@@ -4,10 +4,10 @@ const cors = require('cors');
 const hdb = require('hdb');
 
 const connectionOptions = {
-  host: 'e30109de-b87a-4fb9-9a92-eeeeae99a9db.hana.trial-us10.hanacloud.ondemand.com',
+  host: 'c14b96c5-80d0-4e8d-987a-016d2dddfe41.hana.trial-us10.hanacloud.ondemand.com',
   port: 443,
-  user: 'DB_1_82A8JGBRXMEVKPMKPV56WEXPU_RT',
-  password: 'Lm0MPTASCdWF19N8FE8N0-S9WSRbZR_J8yPA9FEGuemasJtDI_XBcdInEj5JnXy.ahZUujvMxxkXuVbxd0sB5oBgTy2inT9dqMhz-w1NY6jzVHaTwo3Tr3hMuG09Hu-t',
+  user: 'E40188BF6E914BC39E71CAB89533F4CD_E2YL56BIC7PO8DA0JLRISSCL6_RT',
+  password: 'Ai64hAeLOleqJyUUnUD11FeMKYO-ri4hjm52erZ2h3UVdrrNl4zWGagUTEw9LO1pon5pWW1osB2ZpB9t6LlajdlV2roxwhcpgjHPqsROrwWjp0svSwrUmWRZLBZhNhrl',
   encrypt: true
 };
 
@@ -30,7 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.raw());
 
 app.get('/test', function (req, res) {
-  client.exec('SELECT * FROM DB_1.DEVS', (err, result) => {
+  client.exec('SELECT * FROM DB_1.Interests', (err, result) => {
     if (err) {
       console.error('Error executing the query:', err);
       res.status(500).json({ error: 'Internal Server Error' });
