@@ -2,22 +2,22 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const hdb = require('hdb');
-
+/*
 const connectionOptions = {
   host: 'c14b96c5-80d0-4e8d-987a-016d2dddfe41.hana.trial-us10.hanacloud.ondemand.com',
   port: 443,
   user: 'E40188BF6E914BC39E71CAB89533F4CD_E2YL56BIC7PO8DA0JLRISSCL6_RT',
   password: 'Ai64hAeLOleqJyUUnUD11FeMKYO-ri4hjm52erZ2h3UVdrrNl4zWGagUTEw9LO1pon5pWW1osB2ZpB9t6LlajdlV2roxwhcpgjHPqsROrwWjp0svSwrUmWRZLBZhNhrl',
   encrypt: true
-};
-/*
+};*/
+
 const connectionOptions = {
   host: 'e30109de-b87a-4fb9-9a92-eeeeae99a9db.hana.trial-us10.hanacloud.ondemand.com',
   port: 443,
   user: 'DB_1_82A8JGBRXMEVKPMKPV56WEXPU_RT',
   password: 'Lm0MPTASCdWF19N8FE8N0-S9WSRbZR_J8yPA9FEGuemasJtDI_XBcdInEj5JnXy.ahZUujvMxxkXuVbxd0sB5oBgTy2inT9dqMhz-w1NY6jzVHaTwo3Tr3hMuG09Hu-t',
   encrypt: true
-};*/
+};
 
 const client = hdb.createClient(connectionOptions);
 client.connect(err => {
@@ -65,18 +65,22 @@ app.post('/registerUser', function (req, res) {
     });
   });
 
+  //E40188BF6E914BC39E71CAB89533F4CD.BINDERAPP1_1_USERINFO
 app.get('/loginUser', function (req, res) {
     var user=req.query.usr;
     var password=req.query.pwd;
-    client.exec('SELECT ID, firstName FROM E40188BF6E914BC39E71CAB89533F4CD.BINDERAPP1_1_USERINFO WHERE firstname='+user+' AND PASSWORD=\''+password+'\';', (err, result) => {
+    //client.exec('SELECT ID, Name FROM DB_1.USERINFO WHERE NAME=\''+user+'\' AND PASSWORD=\''+password+'\';', (err, result) => {
+      client.exec('SELECT ID, firstName FROM DB_1.USERINFO WHERE ID='+user+' AND PASSWORD=\''+password+'\';', (err, result) => {
       if (err) {
         console.error('Error executing the query:', err);
         res.status(500).json({ error: 'Internal Server Error' });
         return;
       }else{
         if(result.length>0){
+          console.log("esto vino de la base: "+result);
           res.send({"text":"Correct"})
         }else{
+          console.log("esto no vino de la base: "+result);
           res.send({"text":"Incorrect"});
         }
       }
@@ -85,7 +89,21 @@ app.get('/loginUser', function (req, res) {
 
 app.get('/loadProfile', function (req, res) {
     var user=req.query.usr;
-    res.json(data);
+    client.exec('SELECT * FROM DB_1.USERINFO WHERE ID='+user+';', (err, result) => {
+      if (err) {
+        console.error('Error executing the query:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+        return;
+      }else{
+        if(result.length>0){
+          console.log("Informacion de usuario");
+          res.json(result[0]);
+        }else{
+          res.send({"text":"Error al cargar informacion"});
+        }
+      }
+    });
+    
   });
 
 const port = process.env.PORT || 8000;
