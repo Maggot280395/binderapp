@@ -65,11 +65,10 @@ app.post('/registerUser', function (req, res) {
     });
   });
 
-  //E40188BF6E914BC39E71CAB89533F4CD.BINDERAPP1_1_USERINFO
 app.get('/loginUser', function (req, res) {
     var user=req.query.usr;
     var password=req.query.pwd;
-    //client.exec('SELECT ID, Name FROM DB_1.USERINFO WHERE NAME=\''+user+'\' AND PASSWORD=\''+password+'\';', (err, result) => {
+    //client.exec('SELECT ID, Name FROM E40188BF6E914BC39E71CAB89533F4CD.BINDERAPP1_1_USERINFO WHERE NAME=\''+user+'\' AND PASSWORD=\''+password+'\';', (err, result) => {
       client.exec('SELECT ID, firstName FROM DB_1.USERINFO WHERE ID='+user+' AND PASSWORD=\''+password+'\';', (err, result) => {
       if (err) {
         console.error('Error executing the query:', err);
@@ -104,6 +103,10 @@ app.get('/loadProfile', function (req, res) {
       }
     });
     
+  });
+
+app.get('/home', function (req, res) {
+  
   });
 
 const port = process.env.PORT || 8000;
